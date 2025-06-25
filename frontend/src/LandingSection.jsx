@@ -1,103 +1,144 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CodeSnippetCard from './Components/CodeSnippetCard.jsx';
+import AboutSection from './Components/AboutSection.jsx';
 
-const landingSectionStyle = {
-  minHeight: '100vh',
-  minWidth: '100vw',
-  width: '100vw',
-  height: '100vh',
-  background: 'linear-gradient(90deg, #7c3aed 0%, #6366f1 100%)',
-  display: 'flex',
-  fontFamily: 'Inter, sans-serif',
-  overflow: 'hidden',
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0
-};
-
-const flexContainerStyle = {
-  display: 'flex',
-  width: '100%',
-  height: '100%',
-  alignItems: 'stretch',
-  justifyContent: 'space-between',
-  gap: '3rem',
-  padding: '2rem',
-  boxSizing: 'border-box'
-};
-
-const leftColStyle = {
-  flex: 1,
-  color: '#fff',
-  minWidth: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  paddingLeft: '20rem',
-  paddingBottom: '13rem'
-};
-
-const rightColStyle = {
-  flex: 1,
-  minWidth: 0,
-  display: 'flex',
-  alignItems: 'center',
-  paddingRight: '15rem'
-};
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  return isMobile;
+}
 
 export default function LandingSection() {
+  const isMobile = useIsMobile();
+
+  const landingSectionStyle = {
+    minHeight: '100vh',
+    minWidth: '100vw',
+    width: '100vw',
+    background: 'linear-gradient(90deg, #7c3aed 0%, #6366f1 100%)',
+    display: 'flex',
+    alignItems: isMobile ? 'flex-start' : 'center',
+    fontFamily: 'Inter, sans-serif',
+    paddingTop: isMobile ? '1.5rem' : 0,
+  };
+
+  const flexContainerStyle = {
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
+    width: '100%',
+    height: isMobile ? 'auto' : '100%',
+    alignItems: isMobile ? 'stretch' : 'center',
+    justifyContent: isMobile ? 'flex-start' : 'space-between',
+    gap: isMobile ? '1.5rem' : '3rem',
+    padding: isMobile ? '1rem' : '2rem',
+    boxSizing: 'border-box'
+  };
+
+  const leftColStyle = {
+    flex: 1,
+    color: '#fff',
+    minWidth: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: isMobile ? 'flex-start' : 'center',
+    alignItems: isMobile ? 'flex-start' : undefined,
+    paddingLeft: isMobile ? 0 : '20rem',
+    paddingBottom: isMobile ? 0 : '13rem',
+    paddingRight: isMobile ? 0 : '2rem',
+    marginBottom: isMobile ? '2rem' : 0,
+  };
+
+  const rightColStyle = {
+    flex: 1,
+    minWidth: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: isMobile ? 'center' : 'flex-end',
+    paddingRight: isMobile ? 0 : '15rem',
+  };
+
+  const headingStyle = {
+    fontSize: isMobile ? '2rem' : '3rem',
+    fontWeight: 700,
+    marginBottom: '1.2rem',
+    lineHeight: 1.1
+  };
+
+  const descStyle = {
+    fontSize: isMobile ? '1rem' : '1.25rem',
+    marginBottom: isMobile ? '1.5rem' : '2.5rem',
+    color: 'rgba(255,255,255,0.92)',
+    maxWidth: 520
+  };
+
+  const buttonRowStyle = {
+    display: 'flex',
+    gap: isMobile ? '0.7rem' : '1.2rem',
+    alignItems: 'center',
+    flexWrap: isMobile ? 'wrap' : 'nowrap'
+  };
+
+  const getStartedBtnStyle = {
+    background: '#fff',
+    color: '#7c3aed',
+    fontWeight: 600,
+    fontSize: isMobile ? '1rem' : '1.1rem',
+    border: 'none',
+    borderRadius: '10px',
+    padding: isMobile ? '0.7rem 1.5rem' : '0.9rem 2.2rem',
+    cursor: 'pointer',
+    boxShadow: '0 2px 8px rgba(30,41,59,0.10)'
+  };
+
+  const learnMoreBtnStyle = {
+    background: 'transparent',
+    color: '#fff',
+    fontWeight: 500,
+    fontSize: isMobile ? '1rem' : '1.1rem',
+    border: 'none',
+    padding: isMobile ? '0.7rem 1.1rem' : '0.9rem 1.5rem',
+    cursor: 'pointer',
+    textDecoration: 'underline'
+  };
+
   return (
-    <div style={landingSectionStyle}>
-      <div style={flexContainerStyle}>
-        {/* Left column */}
-        <div style={leftColStyle}>
-          <h1 style={{ fontSize: '3rem', fontWeight: 700, marginBottom: '1.2rem', lineHeight: 1.1 }}>
-            Your personal<br />developer journal
-          </h1>
-          <p style={{ fontSize: '1.25rem', marginBottom: '2.5rem', color: 'rgba(255,255,255,0.92)', maxWidth: 520 }}>
-            Save code snippets, bug fixes, terminal commands, and daily dev notes — searchable, taggable, and optionally exportable.
-          </p>
-          <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
-            <button style={{
-              background: '#fff',
-              color: '#7c3aed',
-              fontWeight: 600,
-              fontSize: '1.1rem',
-              border: 'none',
-              borderRadius: '10px',
-              padding: '0.9rem 2.2rem',
-              cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(30,41,59,0.10)'
-            }}>
-              Get Started Free
-            </button>
-            <button style={{
-              background: 'transparent',
-              color: '#fff',
-              fontWeight: 500,
-              fontSize: '1.1rem',
-              border: 'none',
-              padding: '0.9rem 1.5rem',
-              cursor: 'pointer',
-              textDecoration: 'underline'
-            }}>
-              Learn more
-            </button>
+    <>
+      <div style={landingSectionStyle}>
+        <div style={flexContainerStyle}>
+          {/* Left column */}
+          <div style={leftColStyle}>
+            <h1 style={headingStyle}>
+              Your personal<br />developer journal
+            </h1>
+            <p style={descStyle}>
+              Save code snippets, bug fixes, terminal commands, and daily dev notes — searchable, taggable, and optionally exportable.
+            </p>
+            <div style={buttonRowStyle}>
+              <button style={getStartedBtnStyle}>
+                Get Started Free
+              </button>
+              <button style={learnMoreBtnStyle}>
+                Learn more
+              </button>
+            </div>
+          </div>
+          {/* Right column */}
+          <div style={rightColStyle}>
+            <CodeSnippetCard
+              title="Docker Container Restart"
+              tags={['docker', 'container', 'devops']}
+              updated="2 days ago"
+              code={`# Restart a specific container\ndocker restart container_name\n\n# List all running containers\ndocker ps\n\n# Stop and remove all containers\ndocker stop $(docker ps -a -q)\ndocker rm $(docker ps -a -q)`}
+              description="Quick commands to manage Docker containers when they need to be restarted or cleaned up. Useful for when containers get stuck or need refreshing."
+            />
           </div>
         </div>
-        {/* Right column */}
-        <div style={rightColStyle}>
-          <CodeSnippetCard
-            title="Docker Container Restart"
-            tags={['docker', 'container', 'devops']}
-            updated="2 days ago"
-            code={`# Restart a specific container\ndocker restart container_name\n\n# List all running containers\ndocker ps\n\n# Stop and remove all containers\ndocker stop $(docker ps -a -q)\ndocker rm $(docker ps -a -q)`}
-            description="Quick commands to manage Docker containers when they need to be restarted or cleaned up. Useful for when containers get stuck or need refreshing."
-          />
-        </div>
       </div>
-    </div>
+      <AboutSection />
+    </>
   );
 } 
