@@ -4,7 +4,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="login-bg">
+    <div className="login-root-flex">
       <div className="login-container">
         <div className="login-icon">
           <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,24 +58,38 @@ const LoginPage = () => {
         </div>
       </div>
       <style>{`
-        .login-bg {
+        *, *::before, *::after {
+          box-sizing: border-box;
+        }
+        body {
           min-height: 100vh;
           width: 100vw;
-          background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 100%);
+          background: #818cf8;
+          margin: 0;
+          padding: 0;
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        .login-root-flex {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          width: 100vw;
         }
         .login-container {
           background: #fff;
           border-radius: 20px;
           box-shadow: 0 4px 32px 0 rgba(0,0,0,0.08);
           padding: 40px 32px 32px 32px;
-          width: 100%;
           max-width: 400px;
+          width: 100%;
           display: flex;
           flex-direction: column;
           align-items: center;
+          margin: 0;
+          margin-left: -30vw;
         }
         .login-icon {
           margin-bottom: 16px;
@@ -115,6 +129,7 @@ const LoginPage = () => {
           color: #111827;
           margin-bottom: 6px;
           font-size: 1rem;
+          text-align: left;
         }
         .login-input {
           width: 100%;
@@ -125,6 +140,7 @@ const LoginPage = () => {
           margin-bottom: 18px;
           outline: none;
           transition: border 0.2s;
+          background: #fff;
         }
         .login-input:focus {
           border-color: #6366f1;
@@ -199,10 +215,9 @@ const LoginPage = () => {
         .login-signup:hover {
           text-decoration: underline;
         }
-        @media (max-width: 500px) {
-          .login-container {
-            padding: 24px 8px 16px 8px;
-            max-width: 98vw;
+        @media (max-width: 900px) {
+          .login-root-flex {
+            flex-direction: column;
           }
         }
       `}</style>
