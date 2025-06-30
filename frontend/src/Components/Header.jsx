@@ -1,5 +1,5 @@
 import React from 'react';
-
+import JumpButton from './JumpButton';
 const headerStyle = {
   width: '100%',
   background: '#fff',
@@ -84,8 +84,8 @@ export default function Header() {
         </span>
       </div>
       <div style={rightStyle}>
-        <a href="#" style={loginStyle}>Log in</a>
-        <button style={signupStyle}>Sign up</button>
+        <JumpButton style={loginStyle}>Log in</JumpButton>
+        <JumpButton style={signupStyle}>Sign up</JumpButton>
       </div>
     </header>
   );

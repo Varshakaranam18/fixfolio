@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CodeSnippetCard from './Components/CodeSnippetCard.jsx';
 import AboutSection from './Components/AboutSection.jsx';
+import JumpButton from './Components/JumpButton.jsx';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -14,6 +15,8 @@ function useIsMobile() {
 
 export default function LandingSection() {
   const isMobile = useIsMobile();
+  const aboutRef = useRef(null);
+  const [learnMoreHover, setLearnMoreHover] = useState(false);
 
   const landingSectionStyle = {
     minHeight: '100vh',
@@ -102,7 +105,6 @@ export default function LandingSection() {
     border: 'none',
     padding: isMobile ? '0.7rem 1.1rem' : '0.9rem 1.5rem',
     cursor: 'pointer',
-    textDecoration: 'underline'
   };
 
   return (
@@ -118,12 +120,19 @@ export default function LandingSection() {
               Save code snippets, bug fixes, terminal commands, and daily dev notes — searchable, taggable, and optionally exportable.
             </p>
             <div style={buttonRowStyle}>
-              <button style={getStartedBtnStyle}>
+              <JumpButton style={getStartedBtnStyle}>
                 Get Started Free
-              </button>
-              <button style={learnMoreBtnStyle}>
+              </JumpButton>
+              <JumpButton
+                style={learnMoreBtnStyle}
+                onClick={() => {
+                  if (aboutRef.current) {
+                    aboutRef.current.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 Learn more
-              </button>
+              </JumpButton>
             </div>
           </div>
           {/* Right column */}
@@ -138,7 +147,7 @@ export default function LandingSection() {
           </div>
         </div>
       </div>
-      <AboutSection />
+      <AboutSection ref={aboutRef} />
     </>
   );
 } 

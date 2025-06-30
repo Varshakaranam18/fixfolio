@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -81,7 +81,7 @@ const cardDescStyle = {
   lineHeight: 1.5,
 };
 
-export default function AboutSection() {
+const AboutSection = forwardRef(function AboutSection(props, ref) {
   const isMobile = useIsMobile();
 
   const sectionStyle = {
@@ -228,7 +228,7 @@ export default function AboutSection() {
   };
 
   return (
-    <section style={sectionStyle}>
+    <section ref={ref} style={sectionStyle}>
       <div style={titleStyle}>Never lose your code solutions again</div>
       <div style={subtitleStyle}>
         Fixfolio helps you organize and retrieve your development knowledge<br />
@@ -311,4 +311,6 @@ export default function AboutSection() {
       </section>
     </section>
   );
-} 
+});
+
+export default AboutSection; 
