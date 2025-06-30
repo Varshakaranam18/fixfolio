@@ -1,13 +1,15 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Components/Header.jsx';
-import LandingSection from './LandingSection.jsx';
-
+import LandingSection from './Components/LandingSection.jsx';
 
 function App() {
   return (
-    <>
+    <Router>
       <Header />
-      <LandingSection />
-    </>
+      <Routes>
+        <Route path="/" element={<LandingSection />} />
+      </Routes>
+    </Router>
   );
 }
 

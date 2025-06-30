@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import CodeSnippetCard from './Components/CodeSnippetCard.jsx';
-import AboutSection from './Components/AboutSection.jsx';
-import JumpButton from './Components/JumpButton.jsx';
+import CodeSnippetCard from './CodeSnippetCard.jsx';
+import AboutSection from './AboutSection.jsx';
+import JumpButton from './JumpButton.jsx';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -16,7 +16,6 @@ function useIsMobile() {
 export default function LandingSection() {
   const isMobile = useIsMobile();
   const aboutRef = useRef(null);
-  const [learnMoreHover, setLearnMoreHover] = useState(false);
 
   const landingSectionStyle = {
     minHeight: '100vh',
