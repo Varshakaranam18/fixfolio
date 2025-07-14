@@ -5,6 +5,7 @@ import LoginPage from './Components/LoginPage';
 import SignUpPage from './Components/SignUpPage';
 import './App.css';
 import React from 'react';
+import { Dashboard as FixfolioNotesDashboard } from './Components/FixfolioNotes';
 
 function AppRoutes() {
   const location = useLocation();
@@ -20,11 +21,12 @@ function AppRoutes() {
   }, [location.pathname]);
   return (
     <>
-      <Header />
+      {location.pathname !== '/fixfolio-notes' && <Header />}
       <Routes>
         <Route path="/" element={<LandingSection />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/fixfolio-notes" element={<FixfolioNotesDashboard />} />
       </Routes>
     </>
   );
