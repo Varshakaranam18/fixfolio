@@ -1,7 +1,7 @@
 import React from 'react';
 import JumpButton from './JumpButton';
 const headerStyle = {
-  width: '100%',
+  width: '100vw',
   background: '#fff',
   display: 'flex',
   alignItems: 'center',
@@ -9,8 +9,10 @@ const headerStyle = {
   padding: '0.75rem 2.5rem',
   boxSizing: 'border-box',
   boxShadow: '0 1px 0 0 #f3f4f6',
-  position: 'relative',
-  zIndex: 10
+  position: 'fixed',
+  left: 0,
+  top: 0,
+  zIndex: 1000
 };
 
 const logoStyle = {

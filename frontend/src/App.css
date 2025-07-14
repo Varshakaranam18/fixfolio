@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+
+body.violet-bg {
+  background: linear-gradient(90deg, #7c3aed 0%, #6366f1 100%) !important;
+  min-height: 100vh;
+  min-width: 1200px;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  background: transparent !important;
+}

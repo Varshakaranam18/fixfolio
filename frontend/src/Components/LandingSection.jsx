@@ -1,148 +1,144 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import CodeSnippetCard from './CodeSnippetCard.jsx';
 import AboutSection from './AboutSection.jsx';
 import JumpButton from './JumpButton.jsx';
 
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-  return isMobile;
-}
-
 export default function LandingSection() {
-  const isMobile = useIsMobile();
   const aboutRef = useRef(null);
 
   const landingSectionStyle = {
     minHeight: '100vh',
-    minWidth: '100vw',
     width: '100vw',
-    background: 'linear-gradient(90deg, #7c3aed 0%, #6366f1 100%)',
+    height: '100vh',
     display: 'flex',
-    alignItems: isMobile ? 'flex-start' : 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: 'Inter, sans-serif',
-    paddingTop: isMobile ? '1.5rem' : 0,
+    background: 'none',
+    overflow: 'auto',
   };
 
-  const flexContainerStyle = {
+  const containerStyle = {
+    minWidth: '1088px',
     display: 'flex',
-    flexDirection: isMobile ? 'column' : 'row',
-    width: '100%',
-    height: isMobile ? 'auto' : '100%',
-    alignItems: isMobile ? 'stretch' : 'center',
-    justifyContent: isMobile ? 'flex-start' : 'space-between',
-    gap: isMobile ? '1.5rem' : '3rem',
-    padding: isMobile ? '1rem' : '2rem',
-    boxSizing: 'border-box'
+    alignItems: 'center',
+    gap: '3rem',
+    minHeight: '100vh',
+    boxSizing: 'border-box',
+    paddingTop: '6.5rem', // for fixed header
+    paddingLeft: '120px',
   };
 
   const leftColStyle = {
-    flex: 1,
+    width: '600px',
     color: '#fff',
-    minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: isMobile ? 'flex-start' : 'center',
-    alignItems: isMobile ? 'flex-start' : undefined,
-    paddingLeft: isMobile ? 0 : '20rem',
-    paddingBottom: isMobile ? 0 : '13rem',
-    paddingRight: isMobile ? 0 : '2rem',
-    marginBottom: isMobile ? '2rem' : 0,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 0,
+    gap: '2.2rem',
   };
 
   const rightColStyle = {
-    flex: 1,
-    minWidth: 0,
+    width: '440px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: isMobile ? 'center' : 'flex-end',
-    paddingRight: isMobile ? 0 : '15rem',
+    justifyContent: 'center',
+    padding: 0,
+    boxSizing: 'border-box',
   };
 
   const headingStyle = {
-    fontSize: isMobile ? '2rem' : '3rem',
-    fontWeight: 700,
-    marginBottom: '1.2rem',
-    lineHeight: 1.1
+    fontSize: '3.2rem',
+    fontWeight: 800,
+    lineHeight: 1.13,
+    margin: 0,
+    letterSpacing: '-1.5px',
   };
 
   const descStyle = {
-    fontSize: isMobile ? '1rem' : '1.25rem',
-    marginBottom: isMobile ? '1.5rem' : '2.5rem',
+    fontSize: '1.25rem',
     color: 'rgba(255,255,255,0.92)',
-    maxWidth: 520
+    margin: 0,
+    maxWidth: 520,
+    lineHeight: 1.5,
+    fontWeight: 400,
   };
 
   const buttonRowStyle = {
     display: 'flex',
-    gap: isMobile ? '0.7rem' : '1.2rem',
+    gap: '1.3rem',
     alignItems: 'center',
-    flexWrap: isMobile ? 'wrap' : 'nowrap'
+    marginTop: '1.7rem',
   };
 
   const getStartedBtnStyle = {
     background: '#fff',
     color: '#7c3aed',
-    fontWeight: 600,
-    fontSize: isMobile ? '1rem' : '1.1rem',
+    fontWeight: 700,
+    fontSize: '1.13rem',
     border: 'none',
     borderRadius: '10px',
-    padding: isMobile ? '0.7rem 1.5rem' : '0.9rem 2.2rem',
+    padding: '1.05rem 2.3rem',
     cursor: 'pointer',
-    boxShadow: '0 2px 8px rgba(30,41,59,0.10)'
+    boxShadow: '0 2px 8px rgba(30,41,59,0.10)',
+    transition: 'background 0.2s',
   };
 
   const learnMoreBtnStyle = {
     background: 'transparent',
     color: '#fff',
     fontWeight: 500,
-    fontSize: isMobile ? '1rem' : '1.1rem',
+    fontSize: '1.13rem',
     border: 'none',
-    padding: isMobile ? '0.7rem 1.1rem' : '0.9rem 1.5rem',
+    padding: '1.05rem 1.5rem',
     cursor: 'pointer',
+    textDecoration: 'underline',
+    transition: 'color 0.2s',
   };
 
   return (
     <>
       <div style={landingSectionStyle}>
-        <div style={flexContainerStyle}>
-          {/* Left column */}
-          <div style={leftColStyle}>
-            <h1 style={headingStyle}>
-              Your personal<br />developer journal
-            </h1>
-            <p style={descStyle}>
-              Save code snippets, bug fixes, terminal commands, and daily dev notes — searchable, taggable, and optionally exportable.
-            </p>
-            <div style={buttonRowStyle}>
-              <JumpButton style={getStartedBtnStyle}>
-                Get Started Free
-              </JumpButton>
-              <JumpButton
-                style={learnMoreBtnStyle}
-                onClick={() => {
-                  if (aboutRef.current) {
-                    aboutRef.current.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                Learn more
-              </JumpButton>
+        <div style={{ width: '100vw', overflowX: 'auto' }}>
+          <div style={containerStyle}>
+            {/* Left column */}
+            <div style={leftColStyle}>
+              <h1 style={headingStyle}>
+                Your personal<br />developer journal
+              </h1>
+              <div style={{ marginTop: '1.2rem' }}>
+                <p style={descStyle}>
+                  Save code snippets, bug fixes, terminal commands, and daily dev notes — searchable, taggable, and optionally exportable.
+                </p>
+              </div>
+              <div style={buttonRowStyle}>
+                <JumpButton style={getStartedBtnStyle}>
+                  Get Started Free
+                </JumpButton>
+                <JumpButton
+                  style={learnMoreBtnStyle}
+                  onClick={() => {
+                    if (aboutRef.current) {
+                      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  Learn more
+                </JumpButton>
+              </div>
             </div>
-          </div>
-          {/* Right column */}
-          <div style={rightColStyle}>
-            <CodeSnippetCard
-              title="Docker Container Restart"
-              tags={['docker', 'container', 'devops']}
-              updated="2 days ago"
-              code={`# Restart a specific container\ndocker restart container_name\n\n# List all running containers\ndocker ps\n\n# Stop and remove all containers\ndocker stop $(docker ps -a -q)\ndocker rm $(docker ps -a -q)`}
-              description="Quick commands to manage Docker containers when they need to be restarted or cleaned up. Useful for when containers get stuck or need refreshing."
-            />
+            {/* Right column */}
+            <div style={rightColStyle}>
+              <CodeSnippetCard
+                title="Docker Container Restart"
+                tags={['docker', 'container', 'devops']}
+                updated="2 days ago"
+                code={`# Restart a specific container\ndocker restart container_name\n\n# List all running containers\ndocker ps\n\n# Stop and remove all containers\ndocker stop $(docker ps -a -q)\ndocker rm $(docker ps -a -q)`}
+                description="Quick commands to manage Docker containers when they need to be restarted or cleaned up. Useful for when containers get stuck or need refreshing."
+              />
+            </div>
           </div>
         </div>
       </div>
