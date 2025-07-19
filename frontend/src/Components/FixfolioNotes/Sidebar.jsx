@@ -69,7 +69,8 @@ const filters = [
   { key: 'code', label: 'With Code', icon: '💻' },
 ];
 
-export default function Sidebar({ notes, filter, setFilter }) {
+export default function Sidebar({ notes, filter, setFilter, expanded = true, onClose }) {
+  if (!expanded) return null;
   const today = new Date().toDateString();
   const weekAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
 
@@ -81,8 +82,46 @@ export default function Sidebar({ notes, filter, setFilter }) {
   };
 
   return (
-    <aside style={sidebarStyle}>
-      <div style={logoStyle}>
+    <aside 
+      className="sidebar-root expanded"
+      style={{
+        ...sidebarStyle,
+        width: '250px',
+        minWidth: '250px',
+        maxWidth: '250px',
+        background: '#18181b',
+        padding: '2.2rem 1.5rem 1.5rem 1.5rem',
+        transition: 'width 0.2s, background 0.2s',
+        overflow: 'visible',
+        position: 'relative',
+      }}
+    >
+      {/* Close button */}
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '1rem' }}>
+        <button
+          onClick={onClose}
+          style={{
+            background: 'none',
+            border: 'none',
+            outline: 'none',
+            color: '#7c3aed',
+            fontSize: '3.2rem',
+            fontWeight: 900,
+            letterSpacing: '0.05em',
+            cursor: 'pointer',
+            width: '56px',
+            height: '56px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 0,
+          }}
+          aria-label="Collapse sidebar"
+        >
+          &times;
+        </button>
+      </div>
+      <div className="sidebar-logo" style={logoStyle}>
         <span style={{ fontWeight: 900, fontSize: '1.7rem', color: '#fff', letterSpacing: '-0.5px' }}>Fixfolio</span>
       </div>
       {filters.map(f => (
@@ -95,9 +134,9 @@ export default function Sidebar({ notes, filter, setFilter }) {
           <span style={countStyle(filter === f.key)}>{counts[f.key]}</span>
         </button>
       ))}
-      <div style={statBoxStyle}>
+      <div className="sidebar-stat" style={statBoxStyle}>
         {counts.all} <div style={{ fontWeight: 400, fontSize: '1rem', color: '#ede9fe' }}>Total Notes</div>
       </div>
     </aside>
   );
-} 
+}

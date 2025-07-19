@@ -1,0 +1,10 @@
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/model/Note.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/controller/NoteController.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/repository/UserRepository.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/security/SecurityConfig.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/security/JwtUtil.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/model/User.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/config/CorsConfig.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/controller/AuthController.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/repository/NoteRepository.java
+/Users/varshakaranam/Downloads/Project/fixfolio/backend/src/main/java/com/fixfolio/notes/FixfolioBackendApplication.java

@@ -1,0 +1,12 @@
+com/fixfolio/notes/repository/UserRepository.class
+com/fixfolio/notes/controller/NoteController.class
+com/fixfolio/notes/model/User.class
+com/fixfolio/notes/security/JwtRequestFilter.class
+com/fixfolio/notes/FixfolioBackendApplication.class
+com/fixfolio/notes/repository/NoteRepository.class
+com/fixfolio/notes/security/SecurityConfig.class
+com/fixfolio/notes/model/Note.class
+com/fixfolio/notes/security/JwtUtil.class
+com/fixfolio/notes/config/CorsConfig.class
+com/fixfolio/notes/controller/AuthController.class
+com/fixfolio/notes/config/CorsConfig$1.class

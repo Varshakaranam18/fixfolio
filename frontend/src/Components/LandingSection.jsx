@@ -15,22 +15,27 @@ export default function LandingSection() {
     alignItems: 'center',
     fontFamily: 'Inter, sans-serif',
     background: 'none',
-    overflow: 'auto',
+    overflow: 'hidden',
   };
 
   const containerStyle = {
-    minWidth: '1088px',
+    width: '100%',
+    maxWidth: '1200px',
     display: 'flex',
     alignItems: 'center',
     gap: '3rem',
     minHeight: '100vh',
     boxSizing: 'border-box',
     paddingTop: '6.5rem', // for fixed header
-    paddingLeft: '120px',
+    paddingLeft: '2rem',
+    paddingRight: '2rem',
+    justifyContent: 'center',
+    overflow: 'hidden',
   };
 
   const leftColStyle = {
-    width: '600px',
+    flex: '1',
+    maxWidth: '600px',
     color: '#fff',
     display: 'flex',
     flexDirection: 'column',
@@ -38,15 +43,18 @@ export default function LandingSection() {
     alignItems: 'flex-start',
     padding: 0,
     gap: '2.2rem',
+    overflow: 'hidden',
   };
 
   const rightColStyle = {
-    width: '440px',
+    flex: '1',
+    maxWidth: '440px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 0,
     boxSizing: 'border-box',
+    overflow: 'hidden',
   };
 
   const headingStyle = {
@@ -100,25 +108,26 @@ export default function LandingSection() {
 
   return (
     <>
-      <div style={landingSectionStyle}>
-        <div style={{ width: '100vw', overflowX: 'auto' }}>
-          <div style={containerStyle}>
+      <div style={landingSectionStyle} className="landing-root">
+        <div style={{ width: '100vw', overflow: 'hidden' }}>
+          <div style={containerStyle} className="landing-container">
             {/* Left column */}
-            <div style={leftColStyle}>
-              <h1 style={headingStyle}>
+            <div style={leftColStyle} className="landing-left-col">
+              <h1 style={headingStyle} className="landing-heading">
                 Your personal<br />developer journal
               </h1>
               <div style={{ marginTop: '1.2rem' }}>
-                <p style={descStyle}>
+                <p style={descStyle} className="landing-desc">
                   Save code snippets, bug fixes, terminal commands, and daily dev notes — searchable, taggable, and optionally exportable.
                 </p>
               </div>
-              <div style={buttonRowStyle}>
-                <JumpButton style={getStartedBtnStyle}>
+              <div style={buttonRowStyle} className="landing-button-row">
+                <JumpButton style={getStartedBtnStyle} className="landing-get-started-btn">
                   Get Started Free
                 </JumpButton>
                 <JumpButton
                   style={learnMoreBtnStyle}
+                  className="landing-learn-more-btn"
                   onClick={() => {
                     if (aboutRef.current) {
                       aboutRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -130,7 +139,7 @@ export default function LandingSection() {
               </div>
             </div>
             {/* Right column */}
-            <div style={rightColStyle}>
+            <div style={rightColStyle} className="landing-right-col">
               <CodeSnippetCard
                 title="Docker Container Restart"
                 tags={['docker', 'container', 'devops']}
@@ -143,6 +152,16 @@ export default function LandingSection() {
         </div>
       </div>
       <AboutSection ref={aboutRef} />
+      <style>{`
+        @media (max-width: 480px) {
+          .landing-root {
+            background: #5b3df6 !important;
+          }
+          .landing-container {
+            padding-top: 7rem !important;
+          }
+        }
+      `}</style>
     </>
   );
 } 

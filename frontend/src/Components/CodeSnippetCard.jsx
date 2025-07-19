@@ -58,6 +58,7 @@ const tagsStyle = {
   display: 'flex',
   gap: '0.6rem',
   marginBottom: '0.5rem',
+  flexWrap: 'wrap',
 };
 
 const tagColors = {
@@ -105,6 +106,18 @@ const descStyle = {
   lineHeight: 1.4,
 };
 
+const titleStyle = {
+  fontSize: '1.25rem',
+  fontWeight: 700,
+  margin: 0,
+};
+
+const updatedStyle = {
+  color: '#6b7280',
+  fontSize: '1.01rem',
+  fontWeight: 500,
+};
+
 const CodeSnippetCard = ({
   title,
   tags = [],
@@ -112,27 +125,27 @@ const CodeSnippetCard = ({
   code,
   description,
 }) => (
-  <div style={cardStyle}>
-    <div style={windowHeaderStyle}>
+  <div style={cardStyle} className="code-snippet-card">
+    <div style={windowHeaderStyle} className="code-snippet-header">
       <span>Fixfolio - Code Snippet</span>
-      <span style={circlesStyle}>
-        <span style={circle('#f87171')} />
-        <span style={circle('#fbbf24')} />
-        <span style={circle('#34d399')} />
+      <span style={circlesStyle} className="code-snippet-circles">
+        <span style={circle('#f87171')} className="code-snippet-circle" />
+        <span style={circle('#fbbf24')} className="code-snippet-circle" />
+        <span style={circle('#34d399')} className="code-snippet-circle" />
       </span>
     </div>
-    <div style={contentStyle}>
-      <div style={titleRowStyle}>
-        <h2 style={{fontSize: '1.25rem', fontWeight: 700, margin: 0}}>{title}</h2>
-        <span style={{color: '#6b7280', fontSize: '1.01rem', fontWeight: 500}}>Updated {updated}</span>
+    <div style={contentStyle} className="code-snippet-content">
+      <div style={titleRowStyle} className="code-snippet-title-row">
+        <h2 style={titleStyle} className="code-snippet-title">{title}</h2>
+        <span style={updatedStyle} className="code-snippet-updated">Updated {updated}</span>
       </div>
-      <div style={tagsStyle}>
+      <div style={tagsStyle} className="code-snippet-tags">
         {tags.map(tag => (
-          <span key={tag} style={tagStyle(tag)}>{tag}</span>
+          <span key={tag} style={tagStyle(tag)} className="code-snippet-tag">{tag}</span>
         ))}
       </div>
-      <pre style={codeBlockStyle}>{code}</pre>
-      <div style={descStyle}>{description}</div>
+      <pre style={codeBlockStyle} className="code-snippet-code">{code}</pre>
+      <div style={descStyle} className="code-snippet-desc">{description}</div>
     </div>
   </div>
 );

@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import JumpButton from './JumpButton';
+import { useAuth } from '../context/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
+
 const headerStyle = {
   width: '100vw',
   background: '#fff',
@@ -12,7 +15,7 @@ const headerStyle = {
   position: 'fixed',
   left: 0,
   top: 0,
-  zIndex: 1000
+  zIndex: 1000,
 };
 
 const logoStyle = {
@@ -21,7 +24,7 @@ const logoStyle = {
   fontWeight: 700,
   fontSize: '1.5rem',
   color: '#18181b',
-  letterSpacing: '-0.5px'
+  letterSpacing: '-0.5px',
 };
 
 const iconStyle = {
@@ -33,7 +36,7 @@ const iconStyle = {
 const rightStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '1.2rem'
+  gap: '1.2rem',
 };
 
 const loginStyle = {
@@ -43,7 +46,7 @@ const loginStyle = {
   textDecoration: 'none',
   background: 'none',
   border: 'none',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 const signupStyle = {
@@ -55,14 +58,87 @@ const signupStyle = {
   borderRadius: '8px',
   padding: '0.55rem 1.3rem',
   cursor: 'pointer',
-  boxShadow: '0 1px 4px rgba(91,61,246,0.08)'
+  boxShadow: '0 1px 4px rgba(91,61,246,0.08)',
+};
+
+const userInfoStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '1rem',
+};
+
+const userNameStyle = {
+  color: '#374151',
+  fontWeight: 500,
+  fontSize: '1rem',
+};
+
+const logoutStyle = {
+  color: '#dc2626',
+  fontWeight: 500,
+  fontSize: '1rem',
+  textDecoration: 'none',
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  padding: '0.5rem 1rem',
+  borderRadius: '6px',
+  transition: 'background-color 0.2s',
+};
+
+const dashboardStyle = {
+  color: '#5b3df6',
+  fontWeight: 500,
+  fontSize: '1rem',
+  textDecoration: 'none',
+  background: 'none',
+  border: '1px solid #5b3df6',
+  cursor: 'pointer',
+  padding: '0.5rem 1rem',
+  borderRadius: '6px',
+  transition: 'background-color 0.2s',
+};
+
+const mobileMenuButtonStyle = {
+  display: 'none',
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  padding: '0.5rem',
+};
+
+const mobileMenuStyle = {
+  position: 'fixed',
+  top: '100%',
+  left: 0,
+  right: 0,
+  background: '#fff',
+  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  padding: '1rem',
+  display: 'none',
+  flexDirection: 'column',
+  gap: '0.5rem',
+  zIndex: 999,
 };
 
 export default function Header() {
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    setMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
-    <header style={headerStyle}>
-      <div style={logoStyle}>
-        <span style={iconStyle}>
+    <header style={headerStyle} className="header-container">
+      <div style={logoStyle} className="header-logo">
+        <span style={iconStyle} className="header-icon">
           {/* Larger modern folder with star icon */}
           <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
             <rect x="3.5" y="11" width="31" height="16" rx="4" fill="#ede9fe"/>
@@ -85,10 +161,46 @@ export default function Header() {
           <span style={{ color: 'black' }}>O</span>
         </span>
       </div>
-      <div style={rightStyle}>
-        <JumpButton style={loginStyle}>Log in</JumpButton>
-        <JumpButton style={signupStyle}>Sign up</JumpButton>
+      
+      {/* Desktop Menu */}
+      <div style={rightStyle} className="header-right">
+        {isAuthenticated ? (
+          <div style={userInfoStyle} className="header-user-info">
+            <span style={userNameStyle} className="header-user-name">Welcome, {user?.name || 'User'}!</span>
+            <Link to="/fixfolio-notes" style={dashboardStyle} className="header-dashboard-btn">Dashboard</Link>
+            <button style={logoutStyle} className="header-logout-btn" onClick={handleLogout}>Logout</button>
+            {/* Mobile Menu Button - Always visible on mobile */}
+            <button style={mobileMenuButtonStyle} className="mobile-menu-btn" onClick={toggleMobileMenu}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 12h18M3 6h18M3 18h18" stroke="#374151" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </button>
+          </div>
+        ) : (
+          <>
+            <JumpButton style={loginStyle} className="header-login-btn" onClick={() => navigate('/login')}>Log in</JumpButton>
+            <JumpButton style={signupStyle} className="header-signup-btn" onClick={() => navigate('/signup')}>Sign up</JumpButton>
+          </>
+        )}
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div style={mobileMenuStyle} className="mobile-menu">
+          {isAuthenticated ? (
+            <>
+              <span style={userNameStyle} className="header-user-name">Welcome, {user?.name || 'User'}!</span>
+              <Link to="/fixfolio-notes" style={dashboardStyle} className="header-dashboard-btn" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+              <button style={logoutStyle} className="header-logout-btn" onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <JumpButton style={loginStyle} className="header-login-btn" onClick={() => { navigate('/login'); setMobileMenuOpen(false); }}>Log in</JumpButton>
+              <JumpButton style={signupStyle} className="header-signup-btn" onClick={() => { navigate('/signup'); setMobileMenuOpen(false); }}>Sign up</JumpButton>
+            </>
+          )}
+        </div>
+      )}
     </header>
   );
 } 
