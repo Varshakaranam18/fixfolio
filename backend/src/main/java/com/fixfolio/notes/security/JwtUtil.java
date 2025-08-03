@@ -3,6 +3,7 @@ package com.fixfolio.notes.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -12,8 +13,11 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "fixfolio_secret_key_123456";
-    private final long EXPIRATION = 1000 * 60 * 60 * 24; // 24 hours
+    @Value("${jwt.secret:fixfolio_secret_key_123456}")
+    private String SECRET_KEY;
+    
+    @Value("${jwt.expiration:86400000}")
+    private long EXPIRATION;
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);

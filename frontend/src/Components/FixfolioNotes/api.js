@@ -1,5 +1,7 @@
-const API_URL = "http://localhost:8080/api/notes";
-const AUTH_URL = "http://localhost:8080/api/auth";
+import { config } from '../../config.js';
+
+const API_URL = config.API_URL;
+const AUTH_URL = config.AUTH_URL;
 
 function getToken() {
   // Use the same key as AuthContext (likely 'token')
@@ -17,7 +19,9 @@ async function handleResponse(res) {
     try {
       const data = await res.json();
       if (data && data.error) message = data.error;
-    } catch {}
+    } catch {
+      // Ignore JSON parsing errors
+    }
     throw new Error(message);
   }
   return res.json();
